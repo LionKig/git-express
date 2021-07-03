@@ -8,5 +8,7 @@ export const requestTaskCreation = (groupID) => ({
 
 export const createTask = (taskID , groupID , ownerID) => ({
     type : CREATE_TASK ,
-    taskID, groupID, ownerID, 
+    taskID,
+    groupID,
+    ownerID
 })

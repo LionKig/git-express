@@ -27,6 +27,7 @@ const mapDispatchToProps = (dispatch , ownProps) => {
     return {
         createNewTask(id){
             console.log("Creating new task....", id) ;
+            dispatch(requestTaskCreation(id)) ;
         }
     }
 }
