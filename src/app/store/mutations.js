@@ -1,5 +1,8 @@
 export const REQUEST_TASK_CREATION = `REQUEST_TASK_CREATION` ;
 export const CREATE_TASK = `CREATE_TASK` ;
+export const SET_TASK_GROUP = `SET_TASK_GROUP` ;
+export const SET_TASK_COMPLETE = `SET_TASK_COMPLETE` ;
+export const SET_TASK_NAME = `SET_TASK_NAMES` ;
 
 export const requestTaskCreation = (groupID) => ({
     type : REQUEST_TASK_CREATION ,
@@ -12,3 +15,21 @@ export const createTask = (taskID , groupID , ownerID) => ({
     groupID,
     ownerID
 })
+
+export const setTaskCompletion = (id, isComplete) => ({
+    type: SET_TASK_COMPLETE,
+    taskID : id ,
+    isComplete
+}) ;
+
+export const setTaskGruop = (id, group) => ({
+    type: SET_TASK_GROUP,
+    taskID : id ,
+    group
+}) ;
+
+export const setTaskName = (id, name) => ({
+    type: SET_TASK_NAME,
+    taskID : id ,
+    name
+}) ;
