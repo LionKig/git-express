@@ -9,18 +9,20 @@ const TaskDetail = ({
     task,
     isComplete,
     groups,
-    setTaskCompletion
+    setTaskCompletion,
+    setTaskGroup,
+    setTaskName
 })=>(
     <div>
         <div>
-            <input value={  task.name } />
+            <input onChange = {setTaskName} value={  task.name } />
         </div>
         <div>
             <button onClick={()=> setTaskCompletion( id , !isComplete)}>{isComplete? 'Reopen' : 'Complete'}</button>
-        </div>
+        </div> 
 
         <div>
-            <select>
+            <select onChange={setTaskGroup} value = {task.group}>
                 {groups.map(group=>(
                     <option key={group.id} value = {group.id}>{group.name}</option>
                 ))}
