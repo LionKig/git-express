@@ -8,9 +8,11 @@ import { useStore } from "react-redux";
 
 const sagaMiddleware = createSagaMiddleWare() ; 
 
-export const store = createStore( 
-
+export const store = createStore(     
     combineReducers({
+        session(session=defaultState.session){
+            return session ;
+        },
         tasks( tasks = defaultState.tasks , action ){
             switch( action.type ){
                 case mutations.CREATE_TASK:
