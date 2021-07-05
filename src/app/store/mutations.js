@@ -5,6 +5,10 @@ export const ADD_TASK_COMMENT = `ADD_TASK_COMMENT`;
 export const REQUEST_TASK_CREATION = `REQUEST_TASK_CREATION`;
 export const CREATE_TASK = `CREATE_TASK`;
 export const REQUIRE_AUTHENTICATE_USER = `REQUIRE_AUTHENTICATE_USER` ;
+export const PROCESSING_AUTHENTICATE_USER = `PROCESSING_AUTHENTICATE_USER`;
+export const AUTHENTICATED = `AUTHENTICATED` ;
+export const AUTHENTICATING = `AUTHENTIACTING` ;
+export const NOT_AUTHENTICATED = `NOT_AUTHENTICATED`;
 
 
 export const setTaskCompletion = (id, isComplete )=>({
@@ -41,4 +45,10 @@ export const requireAuthenticateUser = (username, password)=>({
     type:REQUIRE_AUTHENTICATE_USER,
     username ,
     password
+});
+
+export const processAuthenticateUser = (status=AUTHENTICATING, session=NULL)=>({
+    type:PROCESSING_AUTHENTICATE_USER,
+    session,
+    authenticated:status
 });
