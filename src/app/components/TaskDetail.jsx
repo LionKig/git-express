@@ -15,10 +15,10 @@ const TaskDetail = ({
 })=>(
     <div>
         <div>
-            <input onChange = {setTaskName} value={  task.name } />
+            <input onChange = {setTaskName} value={task.name} />
         </div>
         <div>
-            <button onClick={()=> setTaskCompletion( id , !isComplete)}>{isComplete? 'Reopen' : 'Complete'}</button>
+            <button onClick={()=>setTaskCompletion(id,!isComplete)}>{isComplete? 'Reopen' : 'Complete'}</button>
         </div> 
 
         <div>
