@@ -6,7 +6,21 @@ import { Router , Route } from 'react-router-dom';
 import { history } from '../store/history'; 
 import { ConnectedNavigation } from './Navigation';
 import { ConnectTaskDetail } from './TaskDetail';
+import { ConnectedTaskList } from './TaskList';
 
+
+const RouteGuard = Component =>({match})=>{
+    console.info("Route Guard" , match) ;
+
+    if( !store.getState().session.authenticated ){
+        // will rerouted
+
+    }else {
+        return <Component match = {match} />
+    }
+
+    
+}
 
 export const Main = () => (
     <Router history ={ history }>
@@ -17,11 +31,11 @@ export const Main = () => (
                 <Route 
                     exact 
                     path="/dashboard" 
-                    render={()=>(<ConnectedDashboard />)} />
+                    render={RouteGuard(ConnectedDashboard)} />
                 <Route 
                     exact 
                     path ="/task/:id"
-                    render={({match})=>(<ConnectTaskDetail match={match}/>)}
+                    render={RouteGuard(ConnectTaskDetail)}
                 />
             </div>
         </Provider>
