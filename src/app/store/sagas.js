@@ -1,32 +1,32 @@
-import { take, put , select } from "redux-saga/effects";
+import { take, put, select } from 'redux-saga/effects';
+import uuid from 'uuid';
+import axios from 'axios';
 
-import uuid from "uuid" ;
-import axios from "axios";
-
-import * as mutations from './mutations' ;
-
-
-const url = "http://localhost:7777" ;
-
+import { history } from './history'
+import * as mutations from './mutations';
+const url = process.env.NODE_ENV === 'production' ? `` : `http://localhost:7777`;
 
 export function* taskCreationSaga(){
-    while(true){
-        const {groupID} = yield take(mutations.REQUEST_TASK_CREATION) ;
-        const ownerID = `U1`;
-        const taskID = uuid() ;
-        yield put(mutations.createTask(taskID,groupID,ownerID)) ;
-        
-        const {res} = yield axios.post(url+'/task/new', {
-            task:{
-                id : taskID,
-                group : groupID,
-                owner : ownerID , 
-                isComplete : false,
-                name : "NEW TASK"
-            }
-        }) ;
+    while (true){
+        const {groupID} = yield take(mutations.REQUEST_TASK_CREATION);
+        const ownerID = yield select(state=>state.session.id);
+        const taskID = uuid();
+        let mutation = mutations.createTask(taskID, groupID, ownerID);
+        const { res } = yield axios.post(url + `/task/new`,{task:{
+            id:taskID,
+            group: groupID,
+            owner: ownerID,
+            isComplete:false,
+            name:"New task"
+        }});
+        yield put(mutation);
+    }
+}
 
-        console.info("Got response" , res) ;
+export function* commentCreationSaga(){
+    while (true) {
+        const comment = yield take (mutations.ADD_TASK_COMMENT);
+        axios.post(url + `/comment/new`,{comment})
     }
 }
 
@@ -78,12 +78,5 @@ export function* userAccountCreationSaga(){
             console.error("Error",e);
             yield put(mutations.processAuthenticateUser(mutations.USERNAME_RESERVED));
         }
-    }
-}
-
-export function* commentCreationSaga(){
-    while (true) {
-        const comment = yield take (mutations.ADD_TASK_COMMENT);
-        axios.post(url + `/comment/new`,{comment})
     }
 }
